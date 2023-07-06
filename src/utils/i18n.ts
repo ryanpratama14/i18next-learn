@@ -26,8 +26,8 @@ i18next
       escapeValue: false,
     },
     detection: {
-      order: ["cookie"],
-      caches: ["cookie"],
+      order: ["localStorage"],
+      caches: ["localStorage"],
     },
   });
 
