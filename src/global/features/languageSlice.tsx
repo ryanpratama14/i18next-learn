@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useTranslation } from "react-i18next";
 
 type LanguageState = {
   lang: string;
