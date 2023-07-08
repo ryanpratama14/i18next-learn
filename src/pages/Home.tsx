@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { languages } from "../utils/utils";
 import { useNavigate } from "react-router-dom";
+import { languages } from "../utils/i18n";
 
 export default function Home(): React.JSX.Element {
   const { t, i18n } = useTranslation();
