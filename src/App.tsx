@@ -3,26 +3,11 @@ import Home from "./pages/Home";
 import { useEffect, useLayoutEffect } from "react";
 import { useTranslation } from "react-i18next";
 import About from "./pages/About";
-import { languages } from "./utils/utils";
-
-export const languagesList = languages.map((e) => e.language);
-
-const removeLangPrefix = (pathname: string): string => {
-  for (let lang of languagesList) {
-    if (pathname.startsWith(`/${lang}/`) || pathname === `/${lang}`) {
-      return pathname.replace(`/${lang}`, "");
-    }
-  }
-  return pathname;
-};
-
-function getLangFromRoute(route: string) {
-  if (route.startsWith("/")) {
-    const parts = route.split("/");
-    return parts[1];
-  }
-  return undefined;
-}
+import {
+  getLangFromRoute,
+  languagesList,
+  removeLangPrefix,
+} from "./utils/i18n";
 
 export default function App(): React.JSX.Element {
   const { i18n } = useTranslation();
@@ -34,7 +19,7 @@ export default function App(): React.JSX.Element {
       i18n.changeLanguage(getLangFromRoute(currentPathname));
       window.location.reload();
     }
-  }, [i18n.language]);
+  }, []);
 
   useEffect(() => {
     const currentPathname = window.location.pathname;
