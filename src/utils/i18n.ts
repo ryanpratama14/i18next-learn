@@ -46,8 +46,8 @@ i18n
       escapeValue: false,
     },
     detection: {
-      order: ["localStorage"],
-      caches: ["localStorage"],
+      order: ["cookie"],
+      caches: ["cookie"],
     },
   });
 
