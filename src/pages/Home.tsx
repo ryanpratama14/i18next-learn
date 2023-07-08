@@ -6,6 +6,12 @@ export default function Home(): React.JSX.Element {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
+  const changeLng = (lng: string): void => {
+    i18n.changeLanguage(lng);
+    window.history.pushState({}, "", `/${lng}`);
+    window.location.reload();
+  };
+
   return (
     <main className="min-h-screen flex flex-col gap-2 justify-center items-center">
       <section className="flex gap-2 items-center">
@@ -14,7 +20,7 @@ export default function Home(): React.JSX.Element {
           return (
             <button
               key={lang.language}
-              onClick={() => i18n.changeLanguage(lang.language)}
+              onClick={() => changeLng(lang.language)}
             >
               {lang.label}
             </button>

@@ -31,18 +31,19 @@ export default function App(): React.JSX.Element {
     const currentPathname = window.location.pathname;
     const newPathname = `/${i18n.language}${removeLangPrefix(currentPathname)}`;
     if (currentPathname !== newPathname) {
-      // window.location.replace(newPathname);
+      // console.log(getLangFromRoute(newPathname));
+      i18n.changeLanguage(getLangFromRoute(currentPathname));
+      window.location.reload();
     }
-  }, []);
+  }, [i18n.language]);
 
   useEffect(() => {
     const currentPathname = window.location.pathname;
-    const newPathname = `/${i18n.language}${removeLangPrefix(currentPathname)}`;
-    if (currentPathname !== newPathname) {
-      console.log(getLangFromRoute(currentPathname));
+    if (!currentPathname.startsWith(`/${i18n.language}`)) {
       i18n.changeLanguage(getLangFromRoute(currentPathname));
+      window.location.replace(currentPathname);
     }
-  }, [i18n.language]);
+  }, []);
 
   return (
     <BrowserRouter basename={`/${i18n.language}`}>
