@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import { useEffect, useLayoutEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -31,7 +31,6 @@ export default function App(): React.JSX.Element {
     const currentPathname = window.location.pathname;
     const newPathname = `/${i18n.language}${removeLangPrefix(currentPathname)}`;
     if (currentPathname !== newPathname) {
-      // console.log(getLangFromRoute(newPathname));
       i18n.changeLanguage(getLangFromRoute(currentPathname));
       window.location.reload();
     }
@@ -39,9 +38,15 @@ export default function App(): React.JSX.Element {
 
   useEffect(() => {
     const currentPathname = window.location.pathname;
-    if (!currentPathname.startsWith(`/${i18n.language}`)) {
-      i18n.changeLanguage(getLangFromRoute(currentPathname));
-      window.location.replace(currentPathname);
+    const langFromRoute = getLangFromRoute(currentPathname);
+    if (!langFromRoute || !languagesList.includes(langFromRoute)) {
+      window.location.replace(`/${i18n.language}${currentPathname}`);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (window.location.pathname === "/") {
+      window.location.replace(`/${i18n.language}`);
     }
   }, []);
 
@@ -49,6 +54,7 @@ export default function App(): React.JSX.Element {
     <BrowserRouter basename={`/${i18n.language}`}>
       <Routes>
         <Route element={<Home />} path="/" />
+        <Route element={<Navigate to="/" />} path="*" />
         <Route element={<About />} path="/about" />
       </Routes>
     </BrowserRouter>
