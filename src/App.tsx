@@ -34,6 +34,7 @@ export default function App(): React.JSX.Element {
       window.location.replace(`/${i18n.language}`);
     }
   }, []);
+
   return (
     <BrowserRouter basename={`/${i18n.language}`}>
       <HelmetProvider>

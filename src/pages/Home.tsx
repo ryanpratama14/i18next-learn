@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
+
 import { useNavigate } from "react-router-dom";
-import { languages } from "../utils/i18n";
+import { languages, removeLangPrefix } from "../utils/i18n";
 
 export default function Home(): React.JSX.Element {
   const { t, i18n } = useTranslation();
@@ -8,8 +9,11 @@ export default function Home(): React.JSX.Element {
 
   const changeLng = (lng: string): void => {
     i18n.changeLanguage(lng);
-    window.history.pushState({}, "", `/${lng}`);
-    window.location.reload();
+    const currentPathname = window.location.pathname;
+    const newPathname = `/${lng}${removeLangPrefix(currentPathname)}`;
+    if (currentPathname !== newPathname) {
+      window.location.replace(newPathname);
+    }
   };
 
   return (
