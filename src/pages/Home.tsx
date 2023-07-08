@@ -1,7 +1,8 @@
 import { useTranslation } from "react-i18next";
-
 import { useNavigate } from "react-router-dom";
 import { languages, removeLangPrefix } from "../utils/i18n";
+import { Fragment } from "react";
+import Head from "../components/Head";
 
 export default function Home(): React.JSX.Element {
   const { t, i18n } = useTranslation();
@@ -17,22 +18,25 @@ export default function Home(): React.JSX.Element {
   };
 
   return (
-    <main className="min-h-screen flex flex-col gap-2 justify-center items-center">
-      <section className="flex gap-2 items-center">
-        <h2>Pick Language</h2>
-        {languages.map((lang) => {
-          return (
-            <button
-              key={lang.language}
-              onClick={() => changeLng(lang.language)}
-            >
-              {lang.label}
-            </button>
-          );
-        })}
-      </section>
-      <p>Result: {t("gagah")}</p>
-      <button onClick={() => navigate("/about")}>To About Page</button>
-    </main>
+    <Fragment>
+      <Head title={t("page-title")} />
+      <main className="min-h-screen flex flex-col gap-2 justify-center items-center">
+        <section className="flex gap-2 items-center">
+          <h2>Pick Language</h2>
+          {languages.map((lang) => {
+            return (
+              <button
+                key={lang.language}
+                onClick={() => changeLng(lang.language)}
+              >
+                {lang.label}
+              </button>
+            );
+          })}
+        </section>
+        <p>Result: {t("gagah")}</p>
+        <button onClick={() => navigate("/about")}>To About Page</button>
+      </main>
+    </Fragment>
   );
 }

@@ -3,6 +3,7 @@ import { lazy } from "react";
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
 
 export default function AppRoutes(): React.JSX.Element {
   return (
@@ -10,6 +11,7 @@ export default function AppRoutes(): React.JSX.Element {
       <Route element={<Home />} path="/" />
       <Route element={<Navigate to="/" />} path="*" />
       <Route element={<About />} path="/about" />
+      <Route element={<Contact />} path="/contact" />
     </Routes>
   );
 }

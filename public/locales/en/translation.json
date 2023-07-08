@@ -1,1 +1,5 @@
-{ "gagah": "English here", "about": "This is About" }
+{
+  "page-title": "Home",
+  "gagah": "English here",
+  "about": "This is About"
+}
