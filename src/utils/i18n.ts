@@ -1,21 +1,9 @@
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import Backend from "i18next-http-backend";
-import i18next from "i18next";
-import { languages } from "./utils";
+import i18n from "i18next";
 
-export const languagesList = languages.map((e) => e.language);
-
-export const removeLangPrefix = (pathname: string): string => {
-  for (let lang of languagesList) {
-    if (pathname.startsWith(`/${lang}/`) || pathname === `/${lang}`) {
-      return pathname.replace(`/${lang}`, "");
-    }
-  }
-  return pathname;
-};
-
-i18next
+i18n
   .use(LanguageDetector)
   .use(Backend)
   .use(initReactI18next)
@@ -31,10 +19,10 @@ i18next
     },
   });
 
-i18next.on("languageChanged", (lng: string) => {
+i18n.on("languageChanged", (lng: string) => {
   document.documentElement.lang = lng;
 });
 
-i18next.resolvedLanguage;
+i18n.resolvedLanguage;
 
-export default i18next;
+export default i18n;
