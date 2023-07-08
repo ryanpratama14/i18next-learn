@@ -1,13 +1,13 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Home from "./pages/Home";
-import { useEffect, useLayoutEffect } from "react";
+import { Suspense, useEffect, useLayoutEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import About from "./pages/About";
 import {
   getLangFromRoute,
   languagesList,
   removeLangPrefix,
 } from "./utils/i18n";
+import AppRoutes from "./AppRoutes";
+import { HelmetProvider } from "react-helmet-async";
 
 export default function App(): React.JSX.Element {
   const { i18n } = useTranslation();
@@ -34,14 +34,13 @@ export default function App(): React.JSX.Element {
       window.location.replace(`/${i18n.language}`);
     }
   }, []);
-
   return (
     <BrowserRouter basename={`/${i18n.language}`}>
-      <Routes>
-        <Route element={<Home />} path="/" />
-        <Route element={<Navigate to="/" />} path="*" />
-        <Route element={<About />} path="/about" />
-      </Routes>
+      <HelmetProvider>
+        <Suspense fallback={<main>Loading...</main>}>
+          <AppRoutes />
+        </Suspense>
+      </HelmetProvider>
     </BrowserRouter>
   );
 }
